@@ -20,22 +20,6 @@ spec:
         volumeMounts:
         - name: homebridge-storage
           mountPath: /homebridge
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8581
-          initialDelaySeconds: 300
-          periodSeconds: 60
-          timeoutSeconds: 2
-          failureThreshold: 5
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8581
-          initialDelaySeconds: 300
-          periodSeconds: 60
-          timeoutSeconds: 2
-          failureThreshold: 5
       volumes:
       - name: homebridge-storage
         persistentVolumeClaim:
