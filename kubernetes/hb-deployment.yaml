@@ -22,6 +22,9 @@ spec:
         volumeMounts:
         - name: homebridge-storage
           mountPath: /homebridge
+        env:
+        - name: TZ
+          value: Asia/Tokyo
         livenessProbe:
           httpGet:
             path: /
