@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homebridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homebridge
+  template:
+    metadata:
+      labels:
+        app: homebridge
+    spec:
+      containers:
+      - name: homebridge
+        image: homebridge/homebridge:2024-09-03
+        ports:
+        - containerPort: 8581
+        volumeMounts:
+        - name: homebridge-storage
+          mountPath: /homebridge
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8581
+          initialDelaySeconds: 300
+          periodSeconds: 60
+          timeoutSeconds: 2
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8581
+          initialDelaySeconds: 300
+          periodSeconds: 60
+          timeoutSeconds: 2
+          failureThreshold: 5
+      volumes:
+      - name: homebridge-storage
+        persistentVolumeClaim:
+          claimName: homebridge-pvc

@@ -1,0 +1,4 @@
+resources:
+  - hb-deployment.yaml
+  - hb-pvc.yaml
+  - hb-service.yaml
